@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,6 +52,13 @@ fun TipTimeApp() {
         )
         Spacer(modifier = Modifier.padding(16.dp))
         NumberField()
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = stringResource(R.string.tip_amount, ""),
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
 
     }
 }
@@ -58,6 +66,8 @@ fun TipTimeApp() {
 @Composable
 fun NumberField() {
     var amountInput by remember { mutableStateOf("") }
+    val amount = amountInput.toDoubleOrNull() ?: 0.0
+    val tip = calculateTip(amount)
     TextField(
         value = amountInput,
         onValueChange = { amountInput = it },
