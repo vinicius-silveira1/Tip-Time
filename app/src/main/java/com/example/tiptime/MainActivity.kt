@@ -42,8 +42,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TipTimeApp() {
     var amountInput by remember { mutableStateOf("") }
+    var tipInput by remember { mutableStateOf("") }
+
+    val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
     val amount = amountInput.toDoubleOrNull() ?: 0.0
-    val tip = calculateTip(amount)
+    val tip = calculateTip(amount, tipPercent)
+
 
     Column(
         modifier = Modifier.padding(32.dp),
@@ -63,8 +67,8 @@ fun TipTimeApp() {
         )
         NumberField(
             label = R.string.how_was_the_service,
-            value = "",
-            onValueChange = {}
+            value = tipInput,
+            onValueChange = { tipInput = it }
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
