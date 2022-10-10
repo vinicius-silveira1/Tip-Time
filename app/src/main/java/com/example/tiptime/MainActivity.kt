@@ -3,6 +3,7 @@ package com.example.tiptime
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
@@ -68,12 +69,17 @@ fun TipTimeApp() {
 }
 
 @Composable
-fun NumberField(value: String, onValueChange: (String) -> Unit) {
+fun NumberField(
+    @StringRes label: Int,
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
 
     TextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(stringResource(R.string.bill_amount))},
+        label = { Text(stringResource(label))},
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
