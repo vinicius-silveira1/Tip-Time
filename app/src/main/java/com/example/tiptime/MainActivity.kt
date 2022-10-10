@@ -49,7 +49,7 @@ fun TipTimeApp() {
 
     val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
     val amount = amountInput.toDoubleOrNull() ?: 0.0
-    val tip = calculateTip(amount, tipPercent)
+    val tip = calculateTip(amount, tipPercent, roundUp)
 
     val focusManager = LocalFocusManager.current
 
@@ -153,8 +153,14 @@ fun RoundTipRow(
 
 }
 
-private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
-    val tip = tipPercent / 100 * amount
+private fun calculateTip(
+    amount: Double,
+    tipPercent: Double = 15.0,
+    roundUp: Boolean
+): String {
+    var tip = tipPercent / 100 * amount
+    if (roundUp)
+        tip = kotlin.math.ceil(tip)
     return NumberFormat.getCurrencyInstance().format(tip)
 }
 
