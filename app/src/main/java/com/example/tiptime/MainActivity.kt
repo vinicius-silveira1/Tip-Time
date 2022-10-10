@@ -56,7 +56,16 @@ fun TipTimeApp() {
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        NumberField(value = amountInput, onValueChange = { amountInput = it })
+        NumberField(
+            label = R.string.bill_amount,
+            value = amountInput,
+            onValueChange = { amountInput = it }
+        )
+        NumberField(
+            label = R.string.how_was_the_service,
+            value = "",
+            onValueChange = {}
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.tip_amount, tip),
